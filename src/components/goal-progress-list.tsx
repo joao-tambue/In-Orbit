@@ -1,55 +1,57 @@
-// src/components/goal-progress-list.tsx
 "use client";
 
 import { Goal } from "@/types/goal";
-import { CheckCircle2 } from "lucide-react";
-import { useWeeklyProgress } from "@/hooks/useWeeklyProgress";
+import { Plus } from "lucide-react";
 
-export default function GoalProgressList({ goals }: { goals: Goal[] }) {
-  const { toggleProgress, getProgressForGoal } = useWeeklyProgress();
-
-  if (goals.length === 0)
+export default function GoalProgressList({
+  goals,
+  onToggle,
+  getCountForGoal,
+}: {
+  goals: Goal[];
+  onToggle: (id: string) => void;
+  getCountForGoal: (id: string) => number;
+}) {
+  if (goals.length === 0) {
     return (
       <div className="text-zinc-500 text-center py-10">
         Nenhuma meta cadastrada ainda para esta semana.
       </div>
     );
+  }
 
   return (
-    <ul className="space-y-3 max-w-md mx-auto mt-6">
-      {goals.map((goal) => {
-        const done = getProgressForGoal(goal.id);
-
-        return (
-          <li
-            key={goal.id}
-            onClick={() => toggleProgress(goal.id)}
-            className={`flex justify-between items-center border rounded-lg px-4 py-3 cursor-pointer transition-all ${
-              done
-                ? "bg-violet-600/20 border-violet-600"
-                : "bg-zinc-900 border-zinc-800 hover:border-zinc-700"
-            }`}
-          >
-            <div>
+    <div className="max-w-[480px] mx-auto mt-6">
+      <ul className="flex flex-wrap items-start gap-2 w-full">
+        {goals.map((goal) => {
+          const done = getCountForGoal(goal.id) > 0;
+          return (
+            <li
+              key={goal.id}
+              onClick={() => onToggle(goal.id)}
+              className={`flex items-center gap-1 border rounded-full px-3 py-2 cursor-pointer transition-all wrap-break-word max-w-full
+                ${
+                  done
+                    ? "bg-zinc-900 border-violet-600/50"
+                    : "bg-zinc-900 border-zinc-800 hover:border-zinc-700"
+                }`}
+            >
+              <Plus
+                size={18}
+                className={`${done ? "text-violet-500" : "text-zinc-600"}`}
+              />
               <p
-                className={`text-sm ${
+                className={`text-sm truncate ${
                   done ? "text-zinc-400 line-through" : "text-white"
                 }`}
               >
                 {goal.title}
               </p>
-              <p className="text-xs text-zinc-500">{goal.frequency}</p>
-            </div>
-
-            <CheckCircle2
-              className={`${
-                done ? "text-violet-500" : "text-zinc-600"
-              } transition-colors`}
-              size={20}
-            />
-          </li>
-        );
-      })}
-    </ul>
+            </li>
+          );
+        })}
+      </ul>
+      <h3 className="font-semibold text-white mt-4">Sua semana</h3>
+    </div>
   );
 }

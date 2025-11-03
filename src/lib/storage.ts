@@ -5,11 +5,17 @@ const STORAGE_KEY = "orbit_goals";
 
 export function getGoals(): Goal[] {
   if (typeof window === "undefined") return [];
-  const data = localStorage.getItem(STORAGE_KEY);
-  return data ? JSON.parse(data) : [];
+  try {
+    const data = localStorage.getItem(STORAGE_KEY);
+    return data ? JSON.parse(data) : [];
+  } catch {
+    return [];
+  }
 }
 
 export function saveGoals(goals: Goal[]) {
   if (typeof window === "undefined") return;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(goals));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(goals));
+  } catch {}
 }
