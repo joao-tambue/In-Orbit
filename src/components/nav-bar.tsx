@@ -1,5 +1,7 @@
 import Image from "next/image";
 import icon from '../../public/icon-orbit.svg'
+import { NotificationWidget } from './notification-widget';
+import { Bell } from "lucide-react";
 
 export function NavBar () {
     return (
@@ -15,6 +17,9 @@ export function NavBar () {
                 <div className="flex items-center gap-6">
                     <div className="text-[22px] font-semibold">
                         <h1>Olá: <span>João</span></h1>
+                    </div>
+                    <div>
+                        <NotificationWidget />
                     </div>
                     <div className="bg-gray-700 py-2 px-2.5 border rounded-full">
                         <h1 className="text-[12px]">JT</h1>
