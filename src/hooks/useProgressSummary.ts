@@ -1,4 +1,3 @@
-// src/hooks/useProgressSummary.ts
 "use client";
 
 import { useMemo } from "react";

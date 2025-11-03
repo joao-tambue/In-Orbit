@@ -44,7 +44,7 @@ export default function Home() {
         ) : (
           <>
             {/* header com percent */}
-            <div className="flex flex-col justify-between gap-4 border-b-1 border-zinc-800 max-w-[480px] mx-auto w-full">
+            <div className="flex flex-col justify-between gap-4 border-b border-zinc-800 max-w-[480px] mx-auto w-full">
               <div className="flex items-center justify-between w-full">
                 <div className="flex flex-col">
                   <div>
@@ -64,7 +64,12 @@ export default function Home() {
               </p>
             </div>
 
-            <GoalProgressList goals={goals} onToggle={weekly.toggleProgress} getCountForGoal={weekly.getCountForGoal} />
+            <GoalProgressList 
+              goals={goals} 
+              onToggle={weekly.toggleProgress} 
+              onDelete={removeGoal}
+              getCountForGoal={weekly.getCountForGoal} 
+            />
 
             <WeekActivity goals={goals} />
           </>

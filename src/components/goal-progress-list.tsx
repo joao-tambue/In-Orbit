@@ -6,10 +6,12 @@ import { Plus } from "lucide-react";
 export default function GoalProgressList({
   goals,
   onToggle,
+  onDelete,
   getCountForGoal,
 }: {
   goals: Goal[];
   onToggle: (id: string) => void;
+  onDelete: (id: string) => void;
   getCountForGoal: (id: string) => number;
 }) {
   if (goals.length === 0) {
@@ -29,6 +31,11 @@ export default function GoalProgressList({
             <li
               key={goal.id}
               onClick={() => onToggle(goal.id)}
+              onDoubleClick={() => {
+                if (window.confirm(`Deseja excluir a meta "${goal.title}"?`)) {
+                  onDelete(goal.id);
+                }
+              }}
               className={`flex items-center gap-1 border rounded-full px-3 py-2 cursor-pointer transition-all wrap-break-word max-w-full
                 ${
                   done

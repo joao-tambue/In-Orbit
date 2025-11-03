@@ -1,11 +1,10 @@
-// src/hooks/useWeeklyProgress.tsx
 "use client";
 
 import { useEffect, useState } from "react";
 import { getCurrentWeekRange } from "@/utils/date";
 
-type Entry = { timestamp: string };
-type WeekProgressStorage = Record<string, Entry[]>; // goalId => entries[]
+type Entry = { timestamp: string; __removed?: boolean };
+type WeekProgressStorage = Record<string, Entry[]>;
 
 const STORAGE_PREFIX = "orbit_progress_";
 
@@ -23,8 +22,8 @@ export function useWeeklyProgress() {
   const parsed = JSON.parse(raw);
   const normalized: WeekProgressStorage = {};
 
-  for (const [key, value] of Object.entries(parsed)) {
-    normalized[key] = Array.isArray(value) ? value : value ? [value] : [];
+  for (const [goalId, value] of Object.entries(parsed)) {
+    normalized[goalId] = Array.isArray(value) ? value : value ? [value] : [];
   }
 
   setData(normalized);
