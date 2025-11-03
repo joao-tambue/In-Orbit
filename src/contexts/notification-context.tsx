@@ -32,7 +32,7 @@ type NotificationAction =
 function notificationReducer(state: Notification[], action: NotificationAction): Notification[] {
   switch (action.type) {
     case "ADD_NOTIFICATION":
-      return [action.payload, ...state].slice(0, 20); // 🔒 mantém no máximo 20
+      return [action.payload, ...state].slice(0, 20);
     case "MARK_AS_READ":
       return state.map((n) => (n.id === action.payload ? { ...n, read: true } : n));
     case "CLEAR_NOTIFICATION":
@@ -49,7 +49,7 @@ function notificationReducer(state: Notification[], action: NotificationAction):
 export function NotificationProvider({ children }: { children: ReactNode }) {
   const [notifications, dispatch] = useReducer(notificationReducer, []);
 
-  // 🧠 Carrega notificações persistidas ao iniciar
+  // Carrega notificações persistidas ao iniciar
   useEffect(() => {
     const stored = localStorage.getItem("notifications");
     if (stored) {
@@ -62,9 +62,51 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  // 💾 Salva notificações sempre que muda
+  // Salva notificações sempre que muda
   useEffect(() => {
     localStorage.setItem("notifications", JSON.stringify(notifications));
+  }, [notifications]);
+
+  // Notificações automáticas
+  useEffect(() => {
+    const checkAutomaticNotifications = () => {
+      try {
+        const metas = JSON.parse(localStorage.getItem("goals") || "[]");
+
+        metas.forEach((meta: any) => {
+          const deadline = new Date(meta.deadline);
+          const now = new Date();
+          const diffDays = Math.ceil((deadline.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+
+          if (diffDays === 1) {
+            if (!notifications.some(n => n.title === "Meta prestes a vencer" && n.message.includes(meta.title))) {
+              addNotification({
+                title: "Meta prestes a vencer",
+                message: `A meta "${meta.title}" vence amanhã! ⚡`,
+                type: "reminder",
+              });
+            }
+          }
+
+          if (meta.progress === 100) {
+            if (!notifications.some(n => n.title === "Meta concluída" && n.message.includes(meta.title))) {
+              addNotification({
+                title: "Meta concluída",
+                message: `Parabéns! Completaste 100% da meta "${meta.title}" 🏁`,
+                type: "achievement",
+              });
+            }
+          }
+        });
+      } catch (err) {
+        console.error("Erro ao verificar notificações automáticas", err);
+      }
+    };
+
+    checkAutomaticNotifications();
+    const interval = setInterval(checkAutomaticNotifications, 6 * 60 * 60 * 1000);
+
+    return () => clearInterval(interval);
   }, [notifications]);
 
   const addNotification = (notification: Omit<Notification, "id" | "read" | "timestamp">) => {
@@ -77,7 +119,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
 
     dispatch({ type: "ADD_NOTIFICATION", payload: newNotification });
 
-    // 🔔 Mostra toast visual
+    // Mostra toast visual
     toast(notification.message, {
       icon:
         notification.type === "achievement"

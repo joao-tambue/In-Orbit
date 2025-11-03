@@ -1,16 +1,26 @@
 "use client";
 
 import * as Popover from "@radix-ui/react-popover";
-import { Bell, Trophy, Target } from "lucide-react";
+import { Bell, Trophy, Target, Lightbulb, Trash2, X } from "lucide-react";
 import { useNotifications } from "@/contexts/notification-context";
 
 export function NotificationWidget() {
-  const { notifications, markAsRead } = useNotifications();
+  const {
+    notifications,
+    markAsRead,
+    clearNotification,
+    clearAll,
+  } = useNotifications();
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 
   const handleNotificationClick = (id: string) => {
     markAsRead(id);
+  };
+
+  const handleClearAll = () => {
+    if (notifications.length === 0) return;
+    clearAll();
   };
 
   return (
@@ -32,7 +42,19 @@ export function NotificationWidget() {
           sideOffset={5}
         >
           <div className="p-4">
-            <h3 className="text-white font-medium mb-2">Notificações</h3>
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-white font-medium">Notificações</h3>
+
+              {notifications.length > 0 && (
+                <button
+                  onClick={handleClearAll}
+                  className="text-xs text-zinc-400 hover:text-red-400 flex items-center gap-1"
+                >
+                  <Trash2 size={12} /> Limpar todas
+                </button>
+              )}
+            </div>
+
             <div className="space-y-3 max-h-[400px] overflow-y-auto">
               {notifications.length === 0 ? (
                 <p className="text-zinc-400 text-sm">
@@ -43,12 +65,23 @@ export function NotificationWidget() {
                   <div
                     key={notification.id}
                     onClick={() => handleNotificationClick(notification.id)}
-                    className={`p-3 rounded-lg border cursor-pointer transition-colors ${
+                    className={`relative p-3 rounded-lg border transition-colors group ${
                       notification.read
                         ? "bg-zinc-800/50 border-zinc-700"
                         : "bg-zinc-800 border-zinc-600"
                     }`}
                   >
+                    {/* botão de remover */}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        clearNotification(notification.id);
+                      }}
+                      className="absolute top-2 right-2 text-zinc-500 hover:text-red-400 transition"
+                    >
+                      <X size={14} />
+                    </button>
+
                     <div className="flex items-start gap-3">
                       {notification.type === "achievement" && (
                         <Trophy
@@ -57,12 +90,19 @@ export function NotificationWidget() {
                         />
                       )}
                       {notification.type === "tip" && (
-                        <Target
+                        <Lightbulb
                           size={18}
-                          className="text-violet-500 mt-0.5 shrink-0"
+                          className="text-violet-400 mt-0.5 shrink-0"
                         />
                       )}
-                      <div>
+                      {notification.type === "reminder" && (
+                        <Target
+                          size={18}
+                          className="text-blue-400 mt-0.5 shrink-0"
+                        />
+                      )}
+
+                      <div className="pr-4">
                         <h4 className="text-sm font-medium text-white">
                           {notification.title}
                         </h4>

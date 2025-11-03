@@ -1,4 +1,3 @@
-// src/components/week-activity.tsx
 "use client";
 
 import { useWeeklyProgress } from "@/hooks/useWeeklyProgress";
