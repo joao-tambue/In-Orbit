@@ -23,18 +23,18 @@ export default function Home() {
 
   const hasGoals = goals.length > 0;
 
-  // ✅ Adicionar meta + notificação
+  //Adicionar meta e notificação
   const handleAddGoal = (goalData: any) => {
     addGoal(goalData);
 
     addNotification({
-      title: "Nova meta adicionada 🎯",
-      message: `A meta "${goalData.title || "Sem título"}" foi registrada com sucesso!`,
+      title: "New goal added 🎯",
+      message: `The goal "${goalData.title || "Untitled"}" was successfully registered!`,
       type: "achievement",
     });
   };
 
-  // 🔔 1. Notificação de meta com prazo próximo (vence amanhã)
+  // 1. Notificação de meta com prazo próximo (vence amanhã)
   useEffect(() => {
     const now = new Date();
 
@@ -46,8 +46,8 @@ export default function Home() {
 
       if (diffDays === 1 && !triggeredNotifications.current.has(`reminder-${goal.id}`)) {
         addNotification({
-          title: "Lembrete ⏰",
-          message: `A meta "${goal.title}" vence amanhã!`,
+          title: "Reminder ⏰",
+          message: `The goal "${goal.title}" expires tomorrow!`,
           type: "reminder",
         });
         triggeredNotifications.current.add(`reminder-${goal.id}`);
@@ -55,24 +55,24 @@ export default function Home() {
     });
   }, [goals, addNotification]);
 
-  // 🏆 2. Notificação de conclusão de semana (100%)
+  // 2. Notificação de conclusão de semana (100%)
   useEffect(() => {
     if (summary.percent === 100 && !triggeredNotifications.current.has("week-complete")) {
       addNotification({
-        title: "Semana concluída 🎉",
-        message: "Parabéns! Completaste 100% das tuas metas da semana! 🏆",
+        title: "Week completed 🎉",
+        message: "Congratulations! You completed 100% of your goals for the week! 🏆",
         type: "achievement",
       });
       triggeredNotifications.current.add("week-complete");
     }
   }, [summary.percent, addNotification]);
 
-  // 💡 3. Notificação motivacional ao abrir o drawer
+  // 3. Notificação motivacional ao abrir o drawer
   const handleOpenForm = () => {
     setIsOpen(true);
     addNotification({
-      title: "Nova meta 🎯",
-      message: "Vai com tudo! Define uma meta poderosa e conquista teus objetivos!",
+      title: "Yay! New goal! 🎯",
+      message: "Go for it! Set a powerful goal and achieve your objectives!",
       type: "tip",
     });
   };
@@ -86,13 +86,13 @@ export default function Home() {
             <Image src={startImg} alt="start" />
             <div className="flex flex-col gap-5 max-w-[340px] mx-auto w-full">
               <h1 className="text-center text-zinc-300">
-                Você ainda não cadastrou nenhuma meta. Que tal começar agora mesmo?
+                You haven<span>´</span>t registered any goals yet. How about starting right now?
               </h1>
               <button
                 onClick={handleOpenForm}
                 className="bg-violet-500 hover:bg-violet-600 transition-colors border-2 border-black rounded-lg px-4 py-2.5 flex items-center gap-2 justify-center max-w-[187px] mx-auto w-full"
               >
-                Cadastrar meta
+                Register goal
               </button>
             </div>
           </div>
@@ -101,27 +101,27 @@ export default function Home() {
             <div className="flex flex-col justify-between gap-4 border-b border-zinc-800 max-w-[480px] mx-auto w-full">
               <div className="flex items-center justify-between w-full">
                 <div className="flex flex-col">
-                  <p className="text-sm text-zinc-400">De {/* start */} a {/* end */}</p>
-                  <h2 className="text-white text-lg font-semibold mt-1">Suas metas da semana</h2>
+                  <p className="text-sm text-zinc-400">Her</p>
+                  <h2 className="text-white text-lg font-semibold mt-1">Your goals for the week</h2>
                 </div>
                 <button
                   onClick={handleOpenForm}
                   className="bg-violet-600 hover:bg-violet-700 rounded-lg px-4 py-2 text-sm font-medium transition-colors"
                 >
-                  + Cadastrar meta
+                  + Register goal
                 </button>
               </div>
 
               <div className="w-full h-2 bg-zinc-800 rounded-full mt-3 border border-zinc-700">
                 <div
                   style={{ width: `${summary.percent}%` }}
-                  className="h-full bg-gradient-to-r from-pink-500 to-violet-600 rounded-full"
+                  className="h-full bg-linear-to-r from-pink-500 to-violet-600 rounded-full"
                 ></div>
               </div>
 
               <p className="text-xs text-zinc-400 mb-2">
-                Você completou <span className="text-white">{summary.done}</span> de{" "}
-                <span className="text-white">{summary.total}</span> metas essa semana
+                You have completed <span className="text-white">{summary.done}</span> of{" "}
+                <span className="text-white">{summary.total}</span> goals this week.
               </p>
             </div>
 

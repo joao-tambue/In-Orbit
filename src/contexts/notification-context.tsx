@@ -79,27 +79,27 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
           const diffDays = Math.ceil((deadline.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
 
           if (diffDays === 1) {
-            if (!notifications.some(n => n.title === "Meta prestes a vencer" && n.message.includes(meta.title))) {
+            if (!notifications.some(n => n.title === "Goal about to expire" && n.message.includes(meta.title))) {
               addNotification({
-                title: "Meta prestes a vencer",
-                message: `A meta "${meta.title}" vence amanhã! ⚡`,
+                title: "Goal about to expire",
+                message: `The goal "${meta.title}" expires tomorrow! ⚡`,
                 type: "reminder",
               });
             }
           }
 
           if (meta.progress === 100) {
-            if (!notifications.some(n => n.title === "Meta concluída" && n.message.includes(meta.title))) {
+            if (!notifications.some(n => n.title === "Goal completed" && n.message.includes(meta.title))) {
               addNotification({
-                title: "Meta concluída",
-                message: `Parabéns! Completaste 100% da meta "${meta.title}" 🏁`,
+                title: "Goal completed",
+                message: `Congratulations! You have completed 100% of the goal "${meta.title}" 🏁`,
                 type: "achievement",
               });
             }
           }
         });
       } catch (err) {
-        console.error("Erro ao verificar notificações automáticas", err);
+        console.error("Error verifying automatic notifications.", err);
       }
     };
 

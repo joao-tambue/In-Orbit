@@ -17,7 +17,7 @@ export default function GoalProgressList({
   if (goals.length === 0) {
     return (
       <div className="text-zinc-500 text-center py-10">
-        Nenhuma meta cadastrada ainda para esta semana.
+        No goals have been set for this week yet.
       </div>
     );
   }
@@ -58,7 +58,7 @@ export default function GoalProgressList({
           );
         })}
       </ul>
-      <h3 className="font-semibold text-white mt-4">Sua semana</h3>
+      <h3 className="font-semibold text-white mt-4">Your week</h3>
     </div>
   );
 }

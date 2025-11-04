@@ -43,14 +43,14 @@ export function NotificationWidget() {
         >
           <div className="p-4">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-white font-medium">Notificações</h3>
+              <h3 className="text-white font-medium">Notifications</h3>
 
               {notifications.length > 0 && (
                 <button
                   onClick={handleClearAll}
                   className="text-xs text-zinc-400 hover:text-red-400 flex items-center gap-1"
                 >
-                  <Trash2 size={12} /> Limpar todas
+                  <Trash2 size={12} /> Clean all
                 </button>
               )}
             </div>
@@ -58,7 +58,7 @@ export function NotificationWidget() {
             <div className="space-y-3 max-h-[400px] overflow-y-auto">
               {notifications.length === 0 ? (
                 <p className="text-zinc-400 text-sm">
-                  Nenhuma notificação no momento.
+                  No notifications at this time.
                 </p>
               ) : (
                 notifications.map((notification) => (

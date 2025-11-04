@@ -21,7 +21,7 @@ export default function WeekActivity({ goals }: { goals: Goal[] }) {
     const entries = data[goal.id] ?? [];
     entries.forEach((e) => {
       const d = new Date(e.timestamp);
-      const key = d.toLocaleDateString("pt-PT", { weekday: 'long', day: '2-digit', month:'short' });
+      const key = d.toLocaleDateString("en", { weekday: 'long', day: '2-digit', month:'short' });
       if (!byDay[key]) byDay[key] = [];
       byDay[key].push({ goalTitle: goal.title, timestamp: e.timestamp, goalId: goal.id });
     });
@@ -32,7 +32,7 @@ export default function WeekActivity({ goals }: { goals: Goal[] }) {
   if (dayKeys.length === 0) {
     return (
       <div className="max-w-[480pxpx] mx-auto mt-6 text-zinc-400">
-        Você ainda não completou nenhuma meta essa semana.
+        You haven´t completed any goals this week yet.
       </div>
     );
   }
@@ -47,10 +47,10 @@ export default function WeekActivity({ goals }: { goals: Goal[] }) {
               <li key={item.timestamp} className="flex justify-between items-center">
                 <div className="text-sm flex items-center gap-2">
                   <BadgeCheck className="text-pink-400" size={16} />
-                  <p>Você completou "{item.goalTitle}" às {formatTime(item.timestamp)}</p>
+                  <p>You completed "{item.goalTitle}" at {formatTime(item.timestamp)}</p>
                 </div>
                 <button onClick={() => undo(item.goalId)} className="text-sm text-violet-400 hover:underline">
-                  Desfazer
+                  Undo
                 </button>
               </li>
             ))}

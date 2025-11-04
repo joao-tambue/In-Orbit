@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# In Orbit
 
-## Getting Started
+O projeto **Orbit** é uma aplicação web que foca na organização pessoal e produtividade, projetada para ajudar usaurios a definir metas, acompanhar seu progresso semanale manter uma visão clara de sua evelução ao longo do tempo.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<img src="./public/image.png" />
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tecnologias usadas
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<div align="center">
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Technology     | Descrição                                                     | Icon                                                                                       |
+| -------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| **NextJS**    | Framework React full-stack para criação de apps web modernas. | !![Next.js](https://img.shields.io/badge/-Next.js-05122A?style=flat\&logo=next.js)          |
+| **TypeScript** | Superset tipado do JavaScript que facilita a escalabilidade.  | !![TypeScript](https://img.shields.io/badge/-TypeScript-05122A?style=flat\&logo=typescript) |
+| **radix-ui**  | Biblioteca de componentes acessíveis e personalizáveis. | ![Radix UI](https://img.shields.io/badge/-Radix_UI-05122A?style=flat\&logo=radixui)  |
+| **react-hot-toast**       |  Biblioteca para exibir notificações no React.  | ![React Hot Toast](https://img.shields.io/badge/-React_Hot_Toast-05122A?style=flat\&logo=react)                   |
 
-## Learn More
+</div>
+_____________
 
-To learn more about Next.js, take a look at the following resources:
+| Technology          | Descrição                                                                                        | Icon                                                                                            |
+| ------------------- | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| **Next.js**         | Framework React full-stack para criação de aplicações web modernas, rápidas e otimizadas.        | ![Next.js](https://img.shields.io/badge/-Next.js-05122A?style=flat\&logo=next.js)               |
+| **TypeScript**      | Superset do JavaScript que adiciona tipagem estática, tornando o código mais seguro e escalável. | ![TypeScript](https://img.shields.io/badge/-TypeScript-05122A?style=flat\&logo=typescript)      |
+| **Radix UI**        | Biblioteca de componentes acessíveis e personalizáveis para construção de interfaces modernas.   | ![Radix UI](https://img.shields.io/badge/-Radix_UI-05122A?style=flat\&logo=radixui)             |
+| **React Hot Toast** | Biblioteca simples e elegante para exibir notificações leves e personalizáveis no React.         | ![React Hot Toast](https://img.shields.io/badge/-React_Hot_Toast-05122A?style=flat\&logo=react) |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+_Esse projeto foi desenvolvido com ❤ pelo [João Tambue](https://github.com/joao-tambue)_
